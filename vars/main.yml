@@ -1,2 +1,5 @@
 ---
-# vars file for ansible_role_sdkman_init
+# The shell to use to execute SDKMAN
+sdkman_init_shell: /bin/bash
+
+sdkman_init_sdkman_dir: '~/.sdkman'

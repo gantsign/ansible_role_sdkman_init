@@ -1,0 +1,24 @@
+---
+- name: set defaults
+  become: yes
+  become_user: '{{ user.username }}'
+  shell: |
+    source {{ sdkman_init_sdkman_dir }}/bin/sdkman-init.sh || exit 1
+    current_version=''
+    current_version="$(sdk current {{ item.key | quote }} | \
+      grep --color=never 'Using .* version ' | \
+      grep --color=never --only-matching --perl-regexp '(?<=version )[[:graph:]]+')"
+    echo "Current version: $current_version"
+    if [[ "$current_version" == {{ item.value | quote }} ]]; then
+      echo 'Version is already the default'
+    else
+      sdk default {{ item.key | quote }} {{ item.value | quote }}
+    fi
+  args:
+    executable: '{{ sdkman_init_shell }}'
+  register: sdk_default
+  changed_when: "'version set to' in sdk_default.stdout"
+  failed_when: sdk_default.rc != 0 or 'Stop!' in sdk_default.stdout
+  with_dict: '{{ user.sdkman_default }}'
+  loop_control:
+    label: "{{ {'username': user.username, 'candidate': item.key, 'version': item.value} }}"
