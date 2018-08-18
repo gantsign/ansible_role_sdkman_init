@@ -1,38 +1,177 @@
-Role Name
-=========
+Ansible Role: SDKMAN init
+=========================
 
-A brief description of the role goes here.
+[![Build Status](https://travis-ci.com/gantsign/ansible_role_sdkman_init.svg?branch=master)](https://travis-ci.com/gantsign/ansible_role_sdkman_init)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-gantsign.sdkman__init-blue.svg)](https://galaxy.ansible.com/gantsign/sdkman_init)
+[![License](https://img.shields.io/badge/license-Apache_2-blue.svg)](https://raw.githubusercontent.com/gantsign/ansible_role_sdkman_init/master/LICENSE)
+
+Role to initialize [SDKMAN](https://sdkman.io/) the software development kit
+manager. This role allows you to install particular SDKs as part of your Ansible
+provisioning and set which versions should be use by default.
+
+**Important:** this role requires SDKMAN to be already installed. You can use
+our [gantsign.sdkman](https://galaxy.ansible.com/gantsign/sdkman) role to
+install SDKMAN.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* Ansible >= 2.4
+
+* Linux Distribution
+
+    * Debian Family
+
+        * Debian
+
+            * Jessie (8)
+            * Stretch (9)
+
+        * Ubuntu
+
+            * Trusty (14.04)
+            * Xenial (16.04)
+            * Bionic (18.04)
+
+    * RedHat Family
+
+        * CentOS
+
+            * 7
+
+        * Fedora
+
+            * 28
+
+    * SUSE Family
+
+        * OpenSUSE
+
+            * 42.2
+
+    * Note: other versions are likely to work but have not been tested.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The following variables will change the behavior of this role:
 
-Dependencies
-------------
+```yaml
+# SDKMAN is initialized per user so you must specify at least one user
+users:
+  - username: # User to initialize SDKMAN for
+    sdkman_install:
+      - candidate: # Candidate SDK name e.g. java
+        version: # Candidate version to install
+        path: # Optional. To add an existing SDK install to SDKMAN.
+              # The `version` for the existing SDK can't be the same any of
+              # those provided by SDKMAN. The version string is just an
+              # identifier so you can give it any value you like (as long as it
+              # doesn't clash with any other versions for this candidate).
+    sdkman_default:
+      _candidate_sdk_name_here_: # Optional. Default version
+```
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Example Playbooks
+-----------------
 
-Example Playbook
-----------------
+This is an example configuration for this role by itself (without the necessary
+role for installing SDKMAN).
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yaml
+- hosts: servers
+  roles:
+    - role: gantsign.sdkman_init
+      users:
+        - username: example_username
+          sdkman_install:
+            - candidate: java
+              version: '8.0.181-zulu'
+            - candidate: java
+              version: '10'
+              path: '/opt/java/jdk-10.0.2'
+            - candidate: maven
+              version: '3.5.4'
+          sdkman_default:
+            java: '10'
+            maven: '3.5.4'
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+This is a complete example that uses the `gantsign.sdkman` role to install
+SDKMAN. Notice how the `gantsign.sdkman_init` role can be used more than once
+with Ansible tags to conditionally install particular SDKs.
+
+```yaml
+- hosts: servers
+  roles:
+    - role: gantsign.sdkman
+      sdkman_users:
+        - example_username
+
+    - role: gantsign.sdkman_init
+      tags:
+        - java
+      users:
+        - username: example_username
+          sdkman_install:
+            - candidate: java
+              version: '8.0.181-zulu'
+            - candidate: java
+              version: '10'
+              path: '/opt/java/jdk-10.0.2'
+          sdkman_default:
+            java: '10'
+
+    - role: gantsign.sdkman_init
+      tags:
+        - java
+        - maven
+      users:
+        - username: example_username
+          sdkman_install:
+            - candidate: maven
+              version: '3.5.4'
+          sdkman_default:
+            maven: '3.5.4'
+```
+
+More Roles From GantSign
+------------------------
+
+You can find more roles from GantSign on
+[Ansible Galaxy](https://galaxy.ansible.com/gantsign).
+
+Development & Testing
+---------------------
+
+This project uses [Molecule](http://molecule.readthedocs.io/) to aid in the
+development and testing; the role is unit tested using
+[Testinfra](http://testinfra.readthedocs.io/) and
+[pytest](http://docs.pytest.org/).
+
+To develop or test you'll need to have installed the following:
+
+* Linux (e.g. [Ubuntu](http://www.ubuntu.com/))
+* [Docker](https://www.docker.com/)
+* [Python](https://www.python.org/) (including python-pip)
+* [Ansible](https://www.ansible.com/)
+* [Molecule](http://molecule.readthedocs.io/)
+
+To test this role run the following command from the project root:
+
+```bash
+molecule test
+```
 
 License
 -------
 
-BSD
+Apache 2
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+John Freeman
+
+GantSign Ltd.
+Company No. 06109112 (registered in England)
