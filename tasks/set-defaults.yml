@@ -3,6 +3,7 @@
   become: yes
   become_user: '{{ user.username }}'
   shell: |
+    set -eo pipefail
     source {{ sdkman_init_sdkman_dir }}/bin/sdkman-init.sh || exit 1
     current_version=''
     current_version="$(sdk current {{ item.key | quote }} | \
