@@ -22,4 +22,4 @@
   failed_when: sdk_default.rc != 0 or 'Stop!' in sdk_default.stdout
   with_dict: '{{ user.sdkman_default }}'
   loop_control:
-    label: "{{ {'username': user.username, 'candidate': item.key, 'version': item.value} }}"
+    label: '{{ user.username }}'
