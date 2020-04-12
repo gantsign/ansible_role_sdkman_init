@@ -9,7 +9,7 @@
     executable: '{{ sdkman_init_shell }}'
   register: sdk_install
   changed_when: "'Done installing!' in sdk_install.stdout"
-  failed_when: "sdk_install.rc != 0 or ('Stop!' in sdk_install.stdout and 'is already installed' not in sdk_install.stdout)"
+  failed_when: "sdk_install.rc != 0 and not ('is already installed' in sdk_install.stdout)"
   loop_control:
     label: '{{ item.0.username }}: {{ item.1.candidate }} {{ item.1.version }}'
   with_subelements:
