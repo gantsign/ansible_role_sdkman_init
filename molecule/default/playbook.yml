@@ -21,13 +21,13 @@
         - username: test_usr1
           sdkman_install:
             - candidate: ant
-              version: '1.10.1'
+              version: '1.10.7'
             - candidate: ant
-              version: '1.10.0'
+              version: '1.10.6'
             - candidate: ant
-              version: '1.9.9'
+              version: '1.9.14'
             - candidate: ant
               version: 'tmp'
               path: '/tmp'
           sdkman_default:
-            ant: '1.10.0'
+            ant: '1.10.6'

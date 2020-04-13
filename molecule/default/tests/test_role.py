@@ -10,9 +10,9 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 @pytest.mark.parametrize('installed_version', [
     '+ tmp',
-    '* 1.10.1',
-    '* 1.10.0',
-    '* 1.9.9',
+    '* 1.10.7',
+    '* 1.10.6',
+    '* 1.9.14',
 ])
 def test_installed(host, installed_version):
     cmd = 'source ~/.sdkman/bin/sdkman-init.sh && sdk list ant'
@@ -23,4 +23,4 @@ def test_installed(host, installed_version):
 def test_default(host):
     cmd = 'source ~/.sdkman/bin/sdkman-init.sh && sdk current ant'
     out = host.check_output("sudo --login --user=test_usr1 bash -c %s", cmd)
-    assert '1.10.0' in out
+    assert '1.10.6' in out
