@@ -20,14 +20,14 @@
       users:
         - username: test_usr1
           sdkman_install:
-            - candidate: ant
-              version: '1.10.1'
-            - candidate: ant
-              version: '1.10.0'
-            - candidate: ant
-              version: '1.9.9'
-            - candidate: ant
+            - candidate: jbang
+              version: '0.21.0'
+            - candidate: jbang
+              version: '0.20.0'
+            - candidate: jbang
+              version: '0.19.0'
+            - candidate: jbang
               version: 'tmp'
               path: '/tmp'
           sdkman_default:
-            ant: '1.10.0'
+            jbang: '0.20.0'
