@@ -20,14 +20,14 @@
       users:
         - username: test_usr1
           sdkman_install:
-            - candidate: jbang
-              version: '0.21.0'
-            - candidate: jbang
-              version: '0.20.0'
-            - candidate: jbang
-              version: '0.19.0'
-            - candidate: jbang
+            - candidate: asciidoctorj
+              version: '2.3.0'
+            - candidate: asciidoctorj
+              version: '2.2.0'
+            - candidate: asciidoctorj
+              version: '2.1.0'
+            - candidate: asciidoctorj
               version: 'tmp'
               path: '/tmp'
           sdkman_default:
-            jbang: '0.20.0'
+            asciidoctorj: '2.2.0'

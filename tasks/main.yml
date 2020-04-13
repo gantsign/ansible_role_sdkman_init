@@ -1,4 +1,14 @@
 ---
+- name: ~/.curlrc
+  become: yes
+  become_user: '{{ user.username }}'
+  copy:
+    content: '--http1.1'
+    dest: ~/.curlrc
+  loop_control:
+    loop_var: user
+  with_items: '{{ users }}'
+
 - name: install candidates
   become: yes
   become_user: '{{ item.0.username }}'
