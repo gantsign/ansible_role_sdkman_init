@@ -10,9 +10,9 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 @pytest.mark.parametrize('installed_version', [
     '+ tmp',
-    '* 0.21.0',
-    '* 0.20.0',
-    '* 0.19.0',
+    '* 0.51.0',
+    '* 0.50.0',
+    '* 0.49.0',
 ])
 def test_installed(host, installed_version):
     cmd = 'source ~/.sdkman/bin/sdkman-init.sh && sdk list jbang'
@@ -23,4 +23,4 @@ def test_installed(host, installed_version):
 def test_default(host):
     cmd = 'source ~/.sdkman/bin/sdkman-init.sh && sdk current jbang'
     out = host.check_output("sudo --login --user=test_usr1 bash -c %s", cmd)
-    assert '0.20.0' in out
+    assert '0.50.0' in out
