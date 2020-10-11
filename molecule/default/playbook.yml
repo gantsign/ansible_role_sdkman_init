@@ -21,13 +21,13 @@
         - username: test_usr1
           sdkman_install:
             - candidate: jbang
-              version: '0.21.0'
+              version: '0.51.0'
             - candidate: jbang
-              version: '0.20.0'
+              version: '0.50.0'
             - candidate: jbang
-              version: '0.19.0'
+              version: '0.49.0'
             - candidate: jbang
               version: 'tmp'
               path: '/tmp'
           sdkman_default:
-            jbang: '0.20.0'
+            jbang: '0.50.0'
