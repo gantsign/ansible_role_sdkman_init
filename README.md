@@ -1,7 +1,7 @@
 Ansible Role: SDKMAN init
 =========================
 
-[![Build Status](https://travis-ci.com/gantsign/ansible_role_sdkman_init.svg?branch=master)](https://travis-ci.com/gantsign/ansible_role_sdkman_init)
+[![Tests](https://github.com/gantsign/ansible_role_sdkman_init/workflows/Tests/badge.svg)](https://github.com/gantsign/ansible_role_sdkman_init/actions?query=workflow%3ATests)
 [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-gantsign.sdkman__init-blue.svg)](https://galaxy.ansible.com/gantsign/sdkman_init)
 [![License](https://img.shields.io/badge/license-Apache_2-blue.svg)](https://raw.githubusercontent.com/gantsign/ansible_role_sdkman_init/master/LICENSE)
 
