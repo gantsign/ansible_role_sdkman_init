@@ -16,7 +16,7 @@ install SDKMAN.
 Requirements
 ------------
 
-* Ansible >= 2.8
+* Ansible >= 2.9
 
 * Linux Distribution
 
